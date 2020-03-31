@@ -14,23 +14,11 @@ class NegociacaoController {
     adiciona(event) {
         event.preventDefault();
 
-        console.log(this._inputData.value.split('-').map((item, indice) => {
-            if(indice == 1) return item - 1;
-            return item;
-        }));
-
-        //Data está retornando errado, bug será consertado nos próximos commits
-
-        let data = new Date(this._inputData.value.split('-').map((item, indice) => {
-            if(indice == 1) return item - 1;
-            return item;
-        }));
-
-        console.log(data);
-
-        let negociacao = new Negociacao(data, this._inputQuantidade.value, this._inputValor.value);
+        let negociacao = new Negociacao(DateHelper.textoParaData(this._inputData.value), this._inputQuantidade.value, this._inputValor.value);
 
         console.log(negociacao);
+        console.log(DateHelper.dataParaTexto(negociacao.data));
+
     }
 
 }

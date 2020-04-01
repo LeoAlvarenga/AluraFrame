@@ -5,11 +5,11 @@ class View {
         this._elemento = elemento;
     }
 
-    _template(model) {
+    template(model) {
         throw new Error("Método template deve ser implementado na classe filha");
     }
 
     update(model) {
-        this._elemento.innerHTML = this._template(model);
+        this._elemento.innerHTML = this.template(model);
     }
 }

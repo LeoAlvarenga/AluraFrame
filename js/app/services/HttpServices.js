@@ -1,24 +1,48 @@
-class HttpServices {
+'use strict';
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-    _handleErrors(res) {
-        if(!res.ok) throw new Error(res.statusText);
-        return res;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var HttpServices = function () {
+    function HttpServices() {
+        _classCallCheck(this, HttpServices);
     }
 
-    get(url) {
+    _createClass(HttpServices, [{
+        key: '_handleErrors',
+        value: function _handleErrors(res) {
+            if (!res.ok) throw new Error(res.statusText);
+            return res;
+        }
+    }, {
+        key: 'get',
+        value: function get(url) {
+            var _this = this;
 
-       return fetch(url).then(res => this._handleErrors(res)).then(res => res.json());
-    }
+            return fetch(url).then(function (res) {
+                return _this._handleErrors(res);
+            }).then(function (res) {
+                return res.json();
+            });
+        }
+    }, {
+        key: 'post',
+        value: function post(url, dado) {
+            var _this2 = this;
 
-    post(url, dado) {
+            return fetch(url, {
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                method: 'post',
+                body: JSON.stringify(dado)
+            }).then(function (res) {
+                return _this2._handleErrors(res);
+            });
+        }
+    }]);
 
-        return fetch(url, {
-            headers: {
-                'Content-type' : 'application/json',
-            },
-            method: 'post',
-            body: JSON.stringify(dado)
-        }).then(res => this._handleErrors(res));
-    }
-}
+    return HttpServices;
+}();
+//# sourceMappingURL=HttpServices.js.map

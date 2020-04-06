@@ -1,4 +1,13 @@
-class NegociacaoController {
+import { ListaNegociacoes } from "../models/ListaNegociacoes";
+import { Mensagem } from "../models/Mensagem";
+import { NegociacoesView } from "../views/NegociacoesView";
+import { MensagemView } from "../views/MensagemView";
+import {NegociacaoService} from '../services/NegociacaoServices';
+import {DateHelper} from '../helpers/DateHelper';
+import {Bind} from '../helpers/Bind';
+import {Negociacao} from '../models/Negociacoes';
+
+export class NegociacaoController {
 
     constructor() {
 
@@ -41,7 +50,7 @@ class NegociacaoController {
 
         let negociacao = new Negociacao(DateHelper.textoParaData(this._inputData.value), parseInt(this._inputQuantidade.value), parseFloat(this._inputValor.value));
 
-        this._service.cadastrar(negociacao).then(mensagem => {
+        this._service.cadastra(negociacao).then(mensagem => {
             this._listaNegociacoes.adiciona(negociacao);
             this._mensagem.texto = mensagem;
             this._limpaFormulario();

@@ -1,30 +1,24 @@
 class HttpServices {
 
+
+    _handleErrors(res) {
+        if(!res.ok) throw new Error(res.statusText);
+        return res;
+    }
+
     get(url) {
 
-        return new Promise((resolve, reject) => {
+       return fetch(url).then(res => this._handleErrors(res)).then(res => res.json());
+    }
 
-            let xhr = new XMLHttpRequest();
+    post(url, dado) {
 
-            xhr.open('GET', url);
-
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState == 4) {
-                    if (xhr.status == 200) {
-                        console.log("Entrou Aqui resolve");
-                        resolve(JSON.parse(xhr.responseText));
-                    } else {
-                        console.log(xhr.responseText);
-                        console.log(xhr.status);
-                        console.log(xhr.readyState);
-
-                        console.log("Entrou Aqui reject");
-                        reject(xhr.responseText);
-                    }
-                }
-            };
-
-            xhr.send();
-        });
+        return fetch(url, {
+            headers: {
+                'Content-type' : 'application/json',
+            },
+            method: 'post',
+            body: JSON.stringify(dado)
+        }).then(res => this._handleErrors(res));
     }
 }
